@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package hts.trade;
+
+message OrderRequest {
+  string user_id = 1;
+  string stock_code = 2;
+  int32 quantity = 3;
+  double price = 4;
+}
+
+message OrderResponse {
+  string order_id = 1;
+  string status = 2;
+}
+
+message BalanceRequest {
+  string user_id = 1;
+}
+
+message BalanceResponse {
+  message Asset {
+    string stock_code = 1;
+    int32 quantity = 2;
+    double average_price = 3;
+  }
+  repeated Asset assets = 1;
+  double cash_balance = 2;
+}
+
+service TradeService {
+  rpc PlaceOrder(OrderRequest) returns (OrderResponse);
+  rpc GetBalance(BalanceRequest) returns (BalanceResponse);
+}

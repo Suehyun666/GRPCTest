@@ -1,0 +1,29 @@
+// hts.proto
+syntax = "proto3";
+
+service MarketDataService {
+  rpc GetPrice(PriceRequest) returns (PriceResponse);
+  rpc SubscribeRealtime(SubscribeRequest) returns (stream TickData);
+}
+
+message PriceRequest {
+  string symbol = 1;
+}
+
+message PriceResponse {
+  string symbol = 1;
+  double price = 2;
+  int64 volume = 3;
+  int64 timestamp = 4;
+}
+
+message SubscribeRequest {
+  repeated string symbols = 1;
+}
+
+message TickData {
+  string symbol = 1;
+  double price = 2;
+  int64 volume = 3;
+  int64 timestamp = 4;
+}
